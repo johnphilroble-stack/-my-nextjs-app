@@ -35,18 +35,18 @@ export default function Home() {
       boxShadow: "0 2px 10px #cccccc"
     }}>
 
-      <h1 style={{ textAlign: "center", color: "#2563eb" }}>
-        My To-Do List
+      <h1 style={{ textAlign: "center", color: "#16a34a" }}>
+        My Daily Task Manager
       </h1>
 
       <p style={{ textAlign: "center", color: "#555" }}>
-        Organize your daily tasks!
+        Keep track of your daily activities!
       </p>
 
       <div style={{ display: "flex", gap: "10px" }}>
         <input
           type="text"
-          placeholder="Enter your task..."
+          placeholder="Enter a new activity..."
           value={task}
           onChange={(e) => setTask(e.target.value)}
           style={{
@@ -59,57 +59,68 @@ export default function Home() {
 
         <button onClick={addTask} style={{
           padding: "12px",
-          backgroundColor: "#2563eb",
+          backgroundColor: "#16a34a",
           color: "white",
           border: "none",
           borderRadius: "6px",
           cursor: "pointer"
         }}>
-          Add
+          Add Task
         </button>
       </div>
 
       <ul style={{ padding: 0, listStyle: "none" }}>
-        {tasks.map((item, index) => (
-          <li key={index} style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "12px",
-            marginTop: "10px",
-            backgroundColor: "#f3f4f6",
-            borderRadius: "6px"
-          }}>
-
-            <span
-              onClick={() => completeTask(index)}
-              style={{
-                cursor: "pointer",
-                textDecoration: item.completed
-                  ? "line-through"
-                  : "none"
-              }}
-            >
-              {item.text}
-            </span>
-
-            <button onClick={() => deleteTask(index)} style={{
-              backgroundColor: "#ef4444",
-              color: "white",
-              border: "none",
-              padding: "7px 10px",
-              borderRadius: "5px",
-              cursor: "pointer"
+        {tasks.length === 0 ? (
+          <p style={{ textAlign: "center", color: "#888" }}>
+            No activities yet. Add your first task!
+          </p>
+        ) : (
+          tasks.map((item, index) => (
+            <li key={index} style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "12px",
+              marginTop: "10px",
+              backgroundColor: "#f0fdf4",
+              borderRadius: "6px"
             }}>
-              Delete
-            </button>
 
-          </li>
-        ))}
+              <span
+                onClick={() => completeTask(index)}
+                style={{
+                  cursor: "pointer",
+                  textDecoration: item.completed
+                    ? "line-through"
+                    : "none",
+                  color: item.completed ? "#888" : "#222"
+                }}
+              >
+                {item.text}
+              </span>
+
+              <button onClick={() => deleteTask(index)} style={{
+                backgroundColor: "#dc2626",
+                color: "white",
+                border: "none",
+                padding: "7px 10px",
+                borderRadius: "5px",
+                cursor: "pointer"
+              }}>
+                Remove
+              </button>
+
+            </li>
+          ))
+        )}
       </ul>
 
       <p style={{ textAlign: "center", color: "#666" }}>
         Total Tasks: {tasks.length}
+      </p>
+
+      <p style={{ textAlign: "center", color: "#16a34a" }}>
+        Completed Tasks: {tasks.filter(item => item.completed).length}
       </p>
 
     </main>
